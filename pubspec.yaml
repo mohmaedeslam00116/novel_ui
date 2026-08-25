@@ -1,0 +1,38 @@
+name: wn_design
+description: >-
+  A novel-app design system for Flutter: book cards, rankings, chapter
+  catalogs, monetization widgets and a complete reading experience.
+version: 0.4.0
+homepage: https://github.com/mohmaedeslam00116/wn_design
+repository: https://github.com/mohmaedeslam00116/wn_design
+issue_tracker: https://github.com/mohmaedeslam00116/wn_design/issues
+topics:
+  - ui
+  - design-system
+  - components
+  - novels
+  - reader
+
+screenshots:
+  - description: >-
+      Library home assembled from wn_design widgets: banner carousel,
+      continue-reading card, book grid with generated covers and status
+      badges, and list tiles.
+    path: screenshots/library.png
+
+environment:
+  sdk: ^3.11.5
+  flutter: ">=3.32.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+  alchemist: ^0.14.0
+
+flutter:
+  uses-material-design: true

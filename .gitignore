@@ -1,0 +1,11 @@
+.dart_tool/
+.packages
+build/
+doc/
+.panatmp/
+pubspec.lock
+*.iml
+.idea/
+example/build/
+example/.dart_tool/
+example/pubspec.lock
