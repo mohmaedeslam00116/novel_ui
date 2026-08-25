@@ -9,3 +9,9 @@ pubspec.lock
 example/build/
 example/.dart_tool/
 example/pubspec.lock
+
+# golden test failure artifacts
+*_isolatedDiff.png
+*_maskedDiff.png
+*_masterImage.png
+*_testImage.png
