@@ -55,11 +55,11 @@
 |---|---|
 | `dart format` صفر انحرافات (50 نقطة ثنائية) | ✅ منفذ |
 | CHANGELOG بصيغة `## x.y.z` + `FEAT/FIX/BREAKING` | ✅ البداية منفذة |
-| تغطية توثيق ≥20% من API العام | ✅ dart doc: 0 تحذيرات (كل الأعضاء العامين موثقة) |
-| `screenshots:` في pubspec (لقطات المثال) | ✅ screenshots/library.png (التُقطت من بناء الويب) |
-| روابط repository حقيقية | ⬜ عند إنشاء الريبو |
+| تغطية توثيق ≥20% من API العام | ✅ 41.4% موثقة + dart doc صفر تحذيرات |
+| `screenshots:` في pubspec (لقطات المثال) | ✅ screenshots/library.png + cwebp مثبت للتحويل |
+| روابط repository حقيقية | ✅ github.com/mohmaedeslam00116/wn_design (عام، مرفوع) |
 | `dart pub downgrade && analyze` نظيف | ✅ مُتحقق منه |
-| `pana --scores` محلياً | ⚠️ pana 0.23.18 معطوب على Windows (sandbox ':' bug) — المعايير تحققت يدوياً بالأدوات الرسمية |
+| **`pana` النهائي** | ✅ **160/160 — الدرجة الكاملة** (بعد ترقيع sandbox ويندوز محلياً + تثبيت libwebp) |
 
 ## المرحلة 4 — الاختبارات المرئية (golden tests)
 
@@ -84,7 +84,7 @@
   تتعلق بحقوق الملكية. أيقونات المكتبة يجب أن تكون أصولاً مرخّصة أصلاً
   (Material Symbols، Lucide، أو تصميم خاص)
 - حزمة `wn_reader_engine` منفصلة إن نما المحرك
-- النشر على pub.dev بعد تثبيت API (1.0.0)
+- ⬜ النشر على pub.dev: `flutter pub publish` — كل شيء جاهز (160/160، مستودع عام، ترخيص MIT، لقطة شاشة). القرار النهائي للمستخدم متى ينشر.
 - توثيق موقعي (widget.catalog) + فيديوهات قصيرة للمكونات
 
 ---
