@@ -21,6 +21,21 @@ class _WnDemoAppState extends State<WnDemoApp> {
   bool _arabic = false;
   DemoBrand _brand = DemoBrand.gold;
 
+  /// Screenshot/demo deep links, e.g. `?tab=1&dark=1` or `?screen=reader`.
+  late final Uri _launchUri = Uri.base;
+
+  @override
+  void initState() {
+    super.initState();
+    if (_launchUri.queryParameters['dark'] == '1') _mode = ThemeMode.dark;
+    final tab = int.tryParse(_launchUri.queryParameters['tab'] ?? '');
+    if (tab != null && tab >= 0 && tab <= 2) _initialTab = tab;
+    _deepScreen = _launchUri.queryParameters['screen'];
+  }
+
+  int _initialTab = 0;
+  String? _deepScreen;
+
   static const _wattpad = WnColorScheme(
     brightness: Brightness.light,
     primary: Color(0xFFFF500A),
@@ -114,6 +129,8 @@ class _WnDemoAppState extends State<WnDemoApp> {
         isDark: _mode == ThemeMode.dark,
         isArabic: _arabic,
         brand: _brand,
+        initialTab: _initialTab,
+        deepScreen: _deepScreen,
         onBrandChanged: (b) => setState(() => _brand = b),
         onToggleMode: () => setState(
           () => _mode = _mode == ThemeMode.dark
@@ -138,6 +155,8 @@ class HomeShell extends StatefulWidget {
     required this.onToggleLanguage,
     required this.brand,
     required this.onBrandChanged,
+    this.initialTab = 0,
+    this.deepScreen,
   });
 
   final bool isDark;
@@ -146,16 +165,43 @@ class HomeShell extends StatefulWidget {
   final ValueChanged<DemoBrand> onBrandChanged;
   final VoidCallback onToggleMode;
   final VoidCallback onToggleLanguage;
+  final int initialTab;
+
+  /// `reader` or `detail` — opens that screen once for screenshot runs.
+  final String? deepScreen;
 
   @override
   State<HomeShell> createState() => _HomeShellState();
 }
 
 class _HomeShellState extends State<HomeShell> {
-  int _tab = 0;
+  late int _tab = widget.initialTab.clamp(0, 2);
+  bool _deepOpened = false;
 
   @override
   Widget build(BuildContext context) {
+    // Screenshot deep links: open the requested screen once.
+    if (!_deepOpened && widget.deepScreen != null) {
+      _deepOpened = true;
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (!mounted) return;
+        final book = DemoData.books[0];
+        if (widget.deepScreen == 'detail') {
+          Navigator.of(context).push(
+            MaterialPageRoute<void>(
+              builder: (_) => BookDetailScreen(book: book),
+            ),
+          );
+        } else if (widget.deepScreen == 'reader') {
+          Navigator.of(context).push(
+            MaterialPageRoute<void>(
+              builder: (_) => ReaderScreen(book: book, startChapter: 11),
+            ),
+          );
+        }
+      });
+    }
+
     final pages = [
       LibraryScreen(
         isArabic: widget.isArabic,

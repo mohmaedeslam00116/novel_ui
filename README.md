@@ -1,146 +1,133 @@
+<div align="center">
+
 # wn_design
 
-A **Webnovel-grade design system for Flutter** — everything you need to build
-novel-reading apps (think Webnovel / Wattpad quality): book grids, rankings,
-chapter catalogs, coin-unlock monetization widgets and a complete reading
-experience with paginated & scroll readers.
+**A novel-app design system for Flutter** — build reading apps with
+Webnovel-grade UI: book grids, rankings, chapter catalogs with coin
+unlocks, and a complete reading engine.
 
-Pure Flutter. No third-party dependencies. Works on Android, iOS, web,
-Windows, macOS and Linux.
+[![pub version](https://img.shields.io/pub/v/wn_design?logo=dart&labelColor=1F1F24&color=FFB100)](https://pub.dev/packages/wn_design)
+[![pub points](https://img.shields.io/pub/points/wn_design?logo=flutter&labelColor=1F1F24&color=3B66F5)](https://pub.dev/packages/wn_design/score)
+[![pub likes](https://img.shields.io/pub/likes/wn_design?labelColor=1F1F24&color=E85D75)](https://pub.dev/packages/wn_design)
+[![license](https://img.shields.io/badge/license-MIT-30A46C?labelColor=1F1F24)](LICENSE)
 
-## ✨ What's inside
+[Library](#-screenshots) · [Quick start](#-quick-start) · [Reader](#-the-reader) · [Theming](#-theming) · [Arabic / RTL](#-arabic--rtl)
 
-| Area | Components |
-|---|---|
-| **Theme** | `WnThemeData` (light/dark presets), `WnColorScheme`, `toMaterialTheme()` bridge, `WnReaderSettings` |
-| **Books** | `WnBookCard`, `WnBookListTile`, `WnCoverView` (auto-generated covers), `WnContinueReadingCard`, `WnStatusBadge`, `WnTagChip`, `WnRatingBar` |
-| **Rankings** | `WnRankListItem` with top-3 medal styling |
-| **Catalog** | `WnChapterTile` (read/locked/VIP states), `WnUnlockSheet` (coin unlock), `WnCoinBadge` |
-| **Engagement** | `WnPowerStoneButton` (violet vote button), `WnSectionHeader`, `WnSearchField`, `WnReviewAxes` (the five Webnovel review axes), `WnUpdateBadge`, `WnCornerRibbon` (ORIGINAL/HOT/NEW), `WnLevelBadge` |
-| **Reader** | `WnReaderView` — scroll & true paginated modes, **6 paper themes recovered from the official app** (white/parchment/mint/gray/kraft/night), tap zones, progress slider, settings sheet, **paragraph comments** (`paragraphCommentCounts` + `WnParagraphCommentsSheet`) |
-| **Comments** | `WnCommentTile`, `WnParagraphCommentsSheet`, `WnFansRankBadge` — built to the recovered comment-module specs (48dp avatar, LV badge, like/reply rows) |
-| **Platform patterns** | `WnPowerRankPodium`, `WnWaitOrPayTile` (24h countdown unlock), `WnLatestUpdateTile` feed row, `WnReadingListPicker` sheet, `WnAchievementRow` medals |
-| **Theming API** | Per-component themes (`theme.components.bookCard.titleStyle…`) with the shadcn-style resolution chain; `WnThemeData` is a real `ThemeExtension` carried by `Theme.of(context)` |
+<img src="screenshots/library.png" width="280" alt="Library home">
+<img src="screenshots/book_detail.png" width="280" alt="Book detail">
+<img src="screenshots/reader.png" width="280" alt="Night reader">
 
-## 🚀 Getting started
+</div>
 
-Add to your `pubspec.yaml`:
+---
+
+## ✨ Why wn_design
+
+- **A reading engine, not just widgets** — true pagination measured with
+  `TextPainter` (page breaks land exactly where they render), scroll mode,
+  auto-scroll, three page-turn styles, six paper themes.
+- **Recovered from the real thing** — reader papers, unlock flows, podium
+  rankings, review axes and comment specs follow the official Webnovel
+  app's own values (extracted from its shipped resources).
+- **Monetization built in** — locked/VIP chapter tiles, coin unlock sheet,
+  wait-or-pay countdown, power-stone votes.
+- **Arabic & RTL are first-class** — every label ships in EN + AR through
+  the theme; one line flips the whole app.
+- **Zero dependencies** — pure Flutter, all six platforms, WCAG-AA contrast
+  verified programmatically across every theme.
+
+## 🚀 Quick start
 
 ```yaml
 dependencies:
-  wn_design:
-    path: ../wn_design   # or git/pub.dev when published
+  wn_design: ^0.4.0
 ```
 
-Wrap your app once:
-
 ```dart
+import 'package:wn_design/wn_design.dart';
+
 MaterialApp(
-  theme: WnThemeData.light().toMaterialTheme(),
+  theme: WnThemeData.webnovel().toMaterialTheme(),      // official blue
   darkTheme: WnThemeData.dark().toMaterialTheme(),
   builder: (context, child) => WnTheme(
-    data: Theme.of(context).brightness == Brightness.dark
-        ? WnThemeData.dark()
-        : WnThemeData.light(),
+    data: WnTheme.of(context),
     child: child!,
   ),
 )
 ```
 
-Access the scheme anywhere: `WnTheme.of(context).colorScheme`.
+## 📸 Screenshots
 
-## 📖 Building a book grid
+| | | |
+|---|---|---|
+| ![](screenshots/rankings.png) | ![](screenshots/gallery.png) | ![](screenshots/library_dark.png) |
+| *Rankings* | *Component gallery* | *Dark mode* |
 
-```dart
-GridView.builder(
-  gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-    maxCrossAxisExtent: 130,
-    childAspectRatio: 0.52,
-  ),
-  itemCount: books.length,
-  itemBuilder: (_, i) => WnBookCard(
-    book: books[i],
-    subtitle: 'Latest: Chapter 128',
-    onTap: () => openDetail(books[i]),
-  ),
-)
-```
+## 📚 What's inside
 
-## 🔤 The reader — flagship feature
+| Area | Components |
+|---|---|
+| **Books** | `WnBookCard` (grid / `.rail` / `.row`), `WnCoverView` (auto-generated covers), `WnContinueReadingCard`, `WnStatusBadge`, `WnTagChip` |
+| **Discovery** | `WnBannerCarousel`, `WnSearchField`, `WnSearchSuggestions`, `WnRankListItem`, `WnPowerRankPodium`, `WnLatestUpdateTile`, `WnSectionHeader` |
+| **Catalog & coins** | `WnChapterTile`, `WnUnlockSheet`, `WnCoinBadge`, `WnWaitOrPayTile`, `WnPowerStoneButton`, `WnReadingListPicker` |
+| **Engagement** | `WnRatingBar`, `WnReviewAxes`, `WnCommentTile`, `WnFansRankBadge`, `WnAchievementRow`, `WnLevelBadge` |
+| **Reader** | `WnReaderView`, `WnTextPaginator`, `WnParagraphCommentsSheet`, `WnFontManager`, `WnTtsPanel`, `WnDanmakuOverlay` |
 
-`WnReaderView` ships a real reading engine:
-
-- **True pagination** — text is measured with `TextPainter` against the live
-  viewport, so page breaks land exactly where they render, even mid-paragraph.
-- **Scroll mode** for continuous vertical reading.
-- **4 paper themes** (white, sepia, green "eye-protection", night) that are
-  independent from the app theme.
-- **Settings sheet** — font size, line height, paragraph spacing, page mode.
-- Tap zones (<30% prev · center chrome · >70% next), chapter navigation,
-  progress slider and progress callbacks for save/resume.
+## 🔤 The reader
 
 ```dart
 WnReaderView(
-  chapter: currentChapter,
+  chapter: chapter,
   totalChapters: chapters.length,
-  settings: readerSettings,
-  onSettingsChanged: saveSettings,
-  onProgressChanged: (p) => repo.saveProgress(bookId, p),
+  settings: const WnReaderSettings(paper: WnReaderPaper.sepia),
+  paragraphCommentCounts: {2: 12, 7: 3},          // numbered bubbles
+  onParagraphComments: (i) => WnParagraphCommentsSheet.show(
+    context, paragraphIndex: i,
+    paragraphText: chapter.paragraphs[i],
+    comments: repo.commentsFor(chapter, i),
+  ),
+  onProgressChanged: (p) => repo.saveProgress(book.id, p),
   onPrevChapter: loadPrev,
   onNextChapter: loadNext,
 )
 ```
 
-## 💰 Monetization widgets
+Six paper themes (white · parchment · mint · gray · kraft · night), font
+size 12–32, line-height and paragraph-gap sliders, auto-scroll, and three
+page-turn animations — all user-tunable from the built-in settings sheet.
 
-Locked/VIP chapters show lock + crown + cost badges in `WnChapterTile`, and
-`WnUnlockSheet.show(...)` gives users a Webnovel-style unlock dialog.
+## 🎨 Theming
 
-## 🎨 Platform presets — look like the famous apps instantly
-
-```dart
-MaterialApp(
-  theme: WnThemeData(colorScheme: WnColorScheme.webnovel).toMaterialTheme(), // official blue
-  // or:
-  theme: WnThemeData(colorScheme: WnPlatformPresets.wattpad(context)).toMaterialTheme(),
-)
-```
-
-## 🧱 Component theming
-
-Every core widget reads `widget.field ?? componentTheme.field ?? default`,
-so you can restyle app-wide without touching call sites:
+Every visual value resolves `widget.field ?? componentTheme.field ??
+default`, so restyling is one place:
 
 ```dart
-WnThemeData.light().copyWith(
+WnThemeData.webnovel().copyWith(
   components: WnComponentsTheme().copyWith(
     bookCard: const WnBookCardTheme(titleStyle: TextStyle(fontSize: 15)),
   ),
 )
 ```
 
-## 🌍 Arabic & RTL — one line
-
-All labels ship through `WnStrings` on the theme (no codegen):
+Or match a famous platform instantly:
 
 ```dart
-final theme = WnThemeData.webnovel().copyWith(strings: WnStrings.ar());
-// wrap with Directionality(textDirection: TextDirection.rtl, ...)
+WnThemeData(colorScheme: WnPlatformPresets.wattpad(context))
 ```
 
-## 🧪 Testing
+## 🌍 Arabic & RTL
 
-19 tests: paginator engine (incl. degenerate viewports), theme system, and
-**golden screenshot suites (alchemist)** covering light/dark × LTR/RTL for
-book cards, chapter tiles and badges. Regenerate with
-`flutter test --tags golden --update-goldens`.
-
-## Example app
-
-Run the showcase under [`example/`](example/lib/main.dart): a full demo app
-with library, rankings, book detail, catalog sheet, unlock flow, reader and a
-component gallery.
-
-```bash
-cd example && flutter run -d chrome
+```dart
+WnThemeData.webnovel().copyWith(strings: WnStrings.ar())
+// + Directionality(textDirection: TextDirection.rtl)
 ```
+
+## 🧪 Quality
+
+28 tests including alchemist golden suites (light/dark × LTR/RTL),
+paginator engine edge cases, and programmatic WCAG-AA contrast checks over
+every theme. `dart doc` clean; pub.dev score **160/160**.
+
+## 📄 License
+
+MIT — see [LICENSE](LICENSE).
