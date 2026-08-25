@@ -1,16 +1,16 @@
 ## 0.4.0
 
 - **FEAT**: Custom reading backgrounds (`SettingBackImage`) —
-  `WnReaderSettings.backImage` renders a network or asset image under the
+  `NovelReaderSettings.backImage` renders a network or asset image under the
   chapter body with a legibility scrim (`backImageDim`).
-- **FEAT**: Comic danmaku overlay (`WnDanmakuOverlay` +
-  `WnDanmakuController`) — lane-managed flying comments recovered from the
+- **FEAT**: Comic danmaku overlay (`NovelDanmakuOverlay` +
+  `NovelDanmakuController`) — lane-managed flying comments recovered from the
   official comic reader settings.
-- **FEAT**: Listening screen `WnTtsPanel` — plays chapter paragraphs with
+- **FEAT**: Listening screen `NovelTtsPanel` — plays chapter paragraphs with
   the current one highlighted, transport controls and speed; apps plug any
-  engine through the `WnTtsDriver` interface (`WnSimulatedTtsDriver`
+  engine through the `NovelTtsDriver` interface (`NovelSimulatedTtsDriver`
   included for demos/tests).
-- **FEAT**: `WnStrings.listen` label (EN/AR).
+- **FEAT**: `NovelStrings.listen` label (EN/AR).
 - **CHORE**: pub.dev publishing prep — package `screenshots:` field,
   zero `dart doc` warnings, formatting verified with
   `dart format --set-exit-if-changed`, dependency-downgrade analyze clean.
@@ -20,17 +20,17 @@
 - **FEAT**: Auto-scroll reading (`SettingAutoScroll`) — toggle from the
   reader chrome ("Auto" button highlights while running) with an adjustable
   speed slider (20–200 px/s) in the settings sheet; stops at chapter end.
-- **FEAT**: Page-turn styles (`SettingFancyWay`) — `WnPageFlip.slide`
+- **FEAT**: Page-turn styles (`SettingFancyWay`) — `NovelPageFlip.slide`
   (default), `.cover` (perspective leaf rotation via `_PageFlipEffect`),
   and `.instant` (tap jumps without animating). Selector appears in the
   settings sheet when page mode is on.
-- **FEAT**: Runtime font bridge `WnFontManager`
+- **FEAT**: Runtime font bridge `NovelFontManager`
   (`SettingArabicContentFont`) — register downloaded or bundled fonts (e.g.
   Arabic reading fonts) and reference them via
-  `WnReaderSettings.fontFamily`. No `dart:io`, works on web too.
+  `NovelReaderSettings.fontFamily`. No `dart:io`, works on web too.
 - **FEAT**: Named variant constructors per the shadcn convention:
-  `WnStatusBadge.full`, `WnTagChip.dense`, `WnRankListItem.topThree`,
-  `WnComment.paragraph`.
+  `NovelStatusBadge.full`, `NovelTagChip.dense`, `NovelRankListItem.topThree`,
+  `NovelComment.paragraph`.
 
 ## 0.2.1
 
@@ -41,33 +41,33 @@
   all six papers.
 - **FIX**: Reader page transitions now respect
   `MediaQuery.disableAnimations` (reduced-motion accessibility).
-- **FEAT**: Named variant constructors on `WnBookCard` — `.rail()` for
-  horizontal discovery strips and static `WnBookCard.row(...)` for dense
+- **FEAT**: Named variant constructors on `NovelBookCard` — `.rail()` for
+  horizontal discovery strips and static `NovelBookCard.row(...)` for dense
   lists (shadcn-style single-class variants).
 
 ## 0.2.0
 
-- **FEAT**: Per-component themes (`WnBookCardTheme`, `WnChapterTileTheme`,
-  `WnCommentTileTheme`, `WnRankListItemTheme`, `WnSectionHeaderTheme`) with
+- **FEAT**: Per-component themes (`NovelBookCardTheme`, `NovelChapterTileTheme`,
+  `NovelCommentTileTheme`, `NovelRankListItemTheme`, `NovelSectionHeaderTheme`) with
   the shadcn-style resolution chain `widget.field ?? componentTheme ?? default`.
-- **FEAT**: `WnThemeData` is now a real `ThemeExtension` — registered inside
+- **FEAT**: `NovelThemeData` is now a real `ThemeExtension` — registered inside
   `toMaterialTheme()` so Material animates light/dark transitions and
-  `Theme.of(context).extension<WnThemeData>()` works anywhere.
+  `Theme.of(context).extension<NovelThemeData>()` works anywhere.
 - **FEAT**: Phase-1 components from the cross-platform gap matrix:
-  `WnPowerRankPodium` (GoodNovel), `WnWaitOrPayTile` countdown unlock
-  (Tapas), `WnLatestUpdateTile` feed row (ScribbleHub),
-  `WnReadingListPicker` sheet (Wattpad), `WnAchievementRow` medals
+  `NovelPowerRankPodium` (GoodNovel), `NovelWaitOrPayTile` countdown unlock
+  (Tapas), `NovelLatestUpdateTile` feed row (ScribbleHub),
+  `NovelReadingListPicker` sheet (Wattpad), `NovelAchievementRow` medals
   (RoyalRoad).
-- **FEAT**: Platform color presets `WnPlatformPresets` (Wattpad #FF500A,
+- **FEAT**: Platform color presets `NovelPlatformPresets` (Wattpad #FF500A,
   GoodNovel #EE3799, RoyalRoad #1976D2) recovered from each platform's
   production CSS.
-- **FEAT**: `WnBannerCarousel` (16:9 auto-advancing promo strip) and
-  `WnSearchSuggestions` (hot searches + history chips).
+- **FEAT**: `NovelBannerCarousel` (16:9 auto-advancing promo strip) and
+  `NovelSearchSuggestions` (hot searches + history chips).
 - **FEAT**: Paragraph comments in the reader (`paragraphCommentCounts`,
-  `onParagraphComments`, `WnParagraphCommentsSheet`) matching the official
+  `onParagraphComments`, `NovelParagraphCommentsSheet`) matching the official
   app's Flutter paragraph-comment surface.
-- **FEAT**: Arabic & RTL support via theme-level `WnStrings` presets
-  (`WnStrings.ar()`), no codegen; every widget label is theme-resolved.
+- **FEAT**: Arabic & RTL support via theme-level `NovelStrings` presets
+  (`NovelStrings.ar()`), no codegen; every widget label is theme-resolved.
 - **FEAT**: Six reader paper themes recovered from the shipped app's
   `ReaderColorUtil` (white/#F6F1E5/#DCE5E2/#808489/#E5CF9C/night).
 - **FEAT**: Tiered rank coloring (red/orange/green) from webnovel.com's
@@ -78,7 +78,7 @@
 ## 0.1.0
 
 - Initial release.
-- Design tokens + `WnThemeData` light/dark themes with Material bridge.
+- Design tokens + `NovelThemeData` light/dark themes with Material bridge.
 - Book components: cards, list tiles, auto-generated covers, badges, ratings.
 - Ranking list items, section headers, search field, power-stone vote button.
 - Chapter tiles with lock/VIP/coin states and unlock bottom sheet.

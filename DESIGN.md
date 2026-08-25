@@ -1,4 +1,4 @@
-# Design System — wn_design
+# Design System — novel_ui
 
 Captured from `lib/src/tokens/`, `lib/src/theme/`, and the recovered
 official-app references (see `../webnovel_design_reference/`).
@@ -12,8 +12,8 @@ switch; the reader can be sepia while the shell is dark.
 
 ## Color Palette
 
-Semantic roles live on `WnColorScheme`; presets: default gold,
-`webnovel` (official 2024 blue), and `WnPlatformPresets` (Wattpad /
+Semantic roles live on `NovelColorScheme`; presets: default gold,
+`webnovel` (official 2024 blue), and `NovelPlatformPresets` (Wattpad /
 GoodNovel / RoyalRoad).
 
 | Role | Light | Dark |
@@ -34,18 +34,18 @@ GoodNovel / RoyalRoad).
 
 Reader inks are tuned per paper (e.g. parchment ink `#3D3729` on
 `#F6F1E5`; night ink `#A6A6AD` on `#15151A`) — see
-`lib/src/theme/wn_color_scheme.dart`.
+`lib/src/theme/novel_color_scheme.dart`.
 
 ## Typography
 
-System stack; optional app-wide override via `WnThemeData.fontFamily`.
+System stack; optional app-wide override via `NovelThemeData.fontFamily`.
 UI scale: display 21/w900 · section title 17/w800 · card title
 14–16/w700–800 · body 13.5–14/w400–500 h1.4–1.6 · meta 11–12.
 Reader body defaults 18sp, line-height 1.7, user-adjustable 12–32.
 
 ## Spacing & Shape
 
-Scale (WnDimens): xs 4 · sm 8 · md 12 · lg 16 · xl 20 · xxl 24 · xxxl 32.
+Scale (NovelDimens): xs 4 · sm 8 · md 12 · lg 16 · xl 20 · xxl 24 · xxxl 32.
 Screen padding 16. Radii: chips 6–8 · cards 12–16 · sheets 20 · pills 999.
 Cover aspect 3:4, grid width 104, list width 76.
 

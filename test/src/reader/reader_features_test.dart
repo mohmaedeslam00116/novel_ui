@@ -1,17 +1,17 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:wn_design/wn_design.dart';
+import 'package:novel_ui/novel_ui.dart';
 
 void main() {
-  group('WnReaderSettings new fields', () {
+  group('NovelReaderSettings new fields', () {
     test('defaults are off and slide', () {
-      const s = WnReaderSettings();
+      const s = NovelReaderSettings();
       expect(s.autoScroll, isFalse);
       expect(s.autoScrollSpeed, 60);
-      expect(s.pageFlip, WnPageFlip.slide);
+      expect(s.pageFlip, NovelPageFlip.slide);
     });
 
     test('copyWith toggles autoScroll without touching speed', () {
-      const s = WnReaderSettings();
+      const s = NovelReaderSettings();
       final on = s.copyWith(autoScroll: true);
       expect(on.autoScroll, isTrue);
       expect(on.autoScrollSpeed, 60);
@@ -22,14 +22,14 @@ void main() {
     });
 
     test('pageFlip switches styles', () {
-      const s = WnReaderSettings();
-      expect(s.copyWith(pageFlip: WnPageFlip.cover).pageFlip, WnPageFlip.cover);
+      const s = NovelReaderSettings();
+      expect(s.copyWith(pageFlip: NovelPageFlip.cover).pageFlip, NovelPageFlip.cover);
     });
   });
 
-  group('WnFontManager registry', () {
+  group('NovelFontManager registry', () {
     test('starts empty and reports unknown families as unloaded', () {
-      final manager = WnFontManager.instance;
+      final manager = NovelFontManager.instance;
       expect(manager.isLoaded('DefinitelyNotLoadedFont'), isFalse);
       expect(manager.loadedFamilies, isA<List<String>>());
     });

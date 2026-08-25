@@ -1,4 +1,4 @@
-name: wn_design_example
+name: novel_ui_example
 description: "A new Flutter project."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -30,7 +30,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  wn_design:
+  novel_ui:
     path: ..
 
   # The following adds the Cupertino Icons font to your application.

@@ -1,14 +1,14 @@
-import 'package:wn_design/wn_design.dart';
+import 'package:novel_ui/novel_ui.dart';
 
 /// Deterministic demo dataset so the example always renders identically.
 abstract final class DemoData {
-  static const books = <WnBook>[
-    WnBook(
+  static const books = <NovelBook>[
+    NovelBook(
       id: 'b1',
       title: 'Rebirth of the Golden Emperor',
       author: 'Cloud Daoist',
       tags: ['Eastern Fantasy', 'Cultivation', 'Reincarnation'],
-      status: WnBookStatus.ongoing,
+      status: NovelBookStatus.ongoing,
       score: 4.7,
       ratingCount: 128400,
       summary:
@@ -20,12 +20,12 @@ abstract final class DemoData {
       viewCount: 38200000,
       category: 'Eastern Fantasy',
     ),
-    WnBook(
+    NovelBook(
       id: 'b2',
       title: 'My Wife Is a Cold-Blooded CEO',
       author: 'Paper Lantern',
       tags: ['Urban Romance', 'Contract Marriage', 'Sweet'],
-      status: WnBookStatus.completed,
+      status: NovelBookStatus.completed,
       score: 4.3,
       ratingCount: 64200,
       summary:
@@ -37,12 +37,12 @@ abstract final class DemoData {
       viewCount: 12400000,
       category: 'Urban Romance',
     ),
-    WnBook(
+    NovelBook(
       id: 'b3',
       title: 'The Dungeon Under My Apartment',
       author: 'Neon Sage',
       tags: ['Sci-fi', 'System', 'Slice of Life'],
-      status: WnBookStatus.ongoing,
+      status: NovelBookStatus.ongoing,
       score: 4.5,
       ratingCount: 30100,
       summary:
@@ -53,12 +53,12 @@ abstract final class DemoData {
       viewCount: 5600000,
       category: 'Sci-fi',
     ),
-    WnBook(
+    NovelBook(
       id: 'b4',
       title: 'Sword Saint Retires at Sixteen',
       author: 'Old Bamboo',
       tags: ['Wuxia', 'Comedy', 'Strong Lead'],
-      status: WnBookStatus.hiatus,
+      status: NovelBookStatus.hiatus,
       score: 4.1,
       ratingCount: 18700,
       summary:
@@ -69,12 +69,12 @@ abstract final class DemoData {
       viewCount: 3100000,
       category: 'Wuxia',
     ),
-    WnBook(
+    NovelBook(
       id: 'b5',
       title: 'Level Up With Cooking Skills',
       author: 'Simmer King',
       tags: ['Fantasy', 'Cooking', 'Lighthearted'],
-      status: WnBookStatus.ongoing,
+      status: NovelBookStatus.ongoing,
       score: 4.6,
       ratingCount: 44100,
       summary:
@@ -86,12 +86,12 @@ abstract final class DemoData {
       viewCount: 8900000,
       category: 'Fantasy',
     ),
-    WnBook(
+    NovelBook(
       id: 'b6',
       title: 'Villainess Turns the Hourglass',
       author: 'Midnight Quill',
       tags: ['Historical', 'Rebirth', 'Palace Intrigue'],
-      status: WnBookStatus.ongoing,
+      status: NovelBookStatus.ongoing,
       score: 4.8,
       ratingCount: 77600,
       summary:
@@ -106,12 +106,12 @@ abstract final class DemoData {
   ];
 
   /// Generates a readable chapter list for demo books.
-  static List<WnChapter> chaptersFor(WnBook book, {int count = 40}) {
+  static List<NovelChapter> chaptersFor(NovelBook book, {int count = 40}) {
     return List.generate(count, (i) {
       final n = i + 1;
       final locked = n > 12 && n % 4 == 0;
       final vip = n > 20 && n % 7 == 0;
-      return WnChapter(
+      return NovelChapter(
         id: '${book.id}-ch$n',
         index: n,
         title: _chapterTitle(n),
@@ -140,7 +140,7 @@ abstract final class DemoData {
     return 'Ch.$n · ${patterns[n % patterns.length]}';
   }
 
-  static List<String> _chapterBody(WnBook book, int chapter) {
+  static List<String> _chapterBody(NovelBook book, int chapter) {
     final lines = <String>[];
     lines.add(
       'Chapter $chapter opened quietly, the way all dangerous days do.',

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:wn_design/wn_design.dart';
+import 'package:novel_ui/novel_ui.dart';
 
-class _CapturingDriver extends WnTtsDriver {
+class _CapturingDriver extends NovelTtsDriver {
   final List<String> spoken = [];
   int stopCount = 0;
 
@@ -14,15 +14,15 @@ class _CapturingDriver extends WnTtsDriver {
 }
 
 void main() {
-  group('WnReaderSettings.backImage', () {
+  group('NovelReaderSettings.backImage', () {
     test('defaults to null paper', () {
-      const s = WnReaderSettings();
+      const s = NovelReaderSettings();
       expect(s.backImage, isNull);
       expect(s.backImageDim, 0.35);
     });
 
     test('set and clear backImage', () {
-      const s = WnReaderSettings();
+      const s = NovelReaderSettings();
       final withBg = s.copyWith(backImage: 'assets/bg_paper.jpg');
       expect(withBg.backImage, 'assets/bg_paper.jpg');
 
@@ -34,9 +34,9 @@ void main() {
     });
   });
 
-  group('WnDanmakuController', () {
+  group('NovelDanmakuController', () {
     test('emits added comments on the stream', () async {
-      final controller = WnDanmakuController();
+      final controller = NovelDanmakuController();
       final received = <String>[];
       final sub = controller.stream.listen(received.add);
       await Future<void>.delayed(Duration.zero);
@@ -51,7 +51,7 @@ void main() {
     });
   });
 
-  group('WnTtsPanel', () {
+  group('NovelTtsPanel', () {
     testWidgets('speaks current paragraph and advances on completion', (
       tester,
     ) async {
@@ -59,7 +59,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: WnTtsPanel(
+            body: NovelTtsPanel(
               paragraphs: const ['One', 'Two', 'Three'],
               driver: driver,
             ),
@@ -92,7 +92,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: WnTtsPanel(
+            body: NovelTtsPanel(
               paragraphs: const ['One', 'Two', 'Three'],
               driver: driver,
             ),

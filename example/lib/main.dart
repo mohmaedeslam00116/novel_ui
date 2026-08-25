@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:wn_design/wn_design.dart';
+import 'package:novel_ui/novel_ui.dart';
 
 import 'mock_data.dart';
 
 void main() {
-  runApp(const WnDemoApp());
+  runApp(const NovelDemoApp());
 }
 
-class WnDemoApp extends StatefulWidget {
-  const WnDemoApp({super.key});
+class NovelDemoApp extends StatefulWidget {
+  const NovelDemoApp({super.key});
 
   @override
-  State<WnDemoApp> createState() => _WnDemoAppState();
+  State<NovelDemoApp> createState() => _NovelDemoAppState();
 }
 
 enum DemoBrand { webnovel, gold, wattpad, goodnovel, royalroad }
 
-class _WnDemoAppState extends State<WnDemoApp> {
+class _NovelDemoAppState extends State<NovelDemoApp> {
   ThemeMode _mode = ThemeMode.light;
   bool _arabic = false;
   DemoBrand _brand = DemoBrand.gold;
@@ -36,7 +36,7 @@ class _WnDemoAppState extends State<WnDemoApp> {
   int _initialTab = 0;
   String? _deepScreen;
 
-  static const _wattpad = WnColorScheme(
+  static const _wattpad = NovelColorScheme(
     brightness: Brightness.light,
     primary: Color(0xFFFF500A),
     onPrimary: Colors.white,
@@ -53,7 +53,7 @@ class _WnDemoAppState extends State<WnDemoApp> {
     error: Color(0xFFE00000),
     success: Color(0xFF00854E),
   );
-  static const _goodNovel = WnColorScheme(
+  static const _goodNovel = NovelColorScheme(
     brightness: Brightness.light,
     primary: Color(0xFFEE3799),
     onPrimary: Colors.white,
@@ -70,7 +70,7 @@ class _WnDemoAppState extends State<WnDemoApp> {
     error: Color(0xFFF56C6C),
     success: Color(0xFF67C23A),
   );
-  static const _royalRoad = WnColorScheme(
+  static const _royalRoad = NovelColorScheme(
     brightness: Brightness.light,
     primary: Color(0xFF1976D2),
     onPrimary: Colors.white,
@@ -88,28 +88,28 @@ class _WnDemoAppState extends State<WnDemoApp> {
     success: Color(0xFF67C23A),
   );
 
-  WnThemeData _brandTheme(Brightness b) {
+  NovelThemeData _brandTheme(Brightness b) {
     final base = b == Brightness.dark
-        ? WnThemeData.dark()
-        : WnThemeData.light();
+        ? NovelThemeData.dark()
+        : NovelThemeData.light();
     if (b == Brightness.light) {
       final cs = switch (_brand) {
-        DemoBrand.webnovel => WnColorScheme.webnovel,
-        DemoBrand.gold => WnColorScheme.light,
+        DemoBrand.webnovel => NovelColorScheme.webnovel,
+        DemoBrand.gold => NovelColorScheme.light,
         DemoBrand.wattpad => _wattpad,
         DemoBrand.goodnovel => _goodNovel,
         DemoBrand.royalroad => _royalRoad,
       };
-      return WnThemeData(colorScheme: cs, brightness: Brightness.light);
+      return NovelThemeData(colorScheme: cs, brightness: Brightness.light);
     }
     return base;
   }
 
   @override
   Widget build(BuildContext context) {
-    WnThemeData themeOf(Brightness b) {
+    NovelThemeData themeOf(Brightness b) {
       final base = _brandTheme(b);
-      return _arabic ? base.copyWith(strings: WnStrings.ar()) : base;
+      return _arabic ? base.copyWith(strings: NovelStrings.ar()) : base;
     }
 
     return MaterialApp(
@@ -120,7 +120,7 @@ class _WnDemoAppState extends State<WnDemoApp> {
       darkTheme: themeOf(Brightness.dark).toMaterialTheme(),
       builder: (context, child) => Directionality(
         textDirection: _arabic ? TextDirection.rtl : TextDirection.ltr,
-        child: WnTheme(
+        child: NovelTheme(
           data: themeOf(Theme.of(context).brightness),
           child: child!,
         ),
@@ -289,12 +289,12 @@ class LibraryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cs = WnTheme.of(context).colorScheme;
+    final cs = NovelTheme.of(context).colorScheme;
     final books = DemoData.books;
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'WebNovels',
+          'NovelHub',
           style: TextStyle(
             fontWeight: FontWeight.w900,
             fontSize: 21,
@@ -321,7 +321,7 @@ class LibraryScreen extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(
-              horizontal: WnDimens.screenPadding,
+              horizontal: NovelDimens.screenPadding,
               vertical: 10,
             ),
             child: GestureDetector(
@@ -329,7 +329,7 @@ class LibraryScreen extends StatelessWidget {
                 context,
               ).showSnackBar(const SnackBar(content: Text('Open search page'))),
               child: const IgnorePointer(
-                child: WnSearchField(
+                child: NovelSearchField(
                   hintText: 'Search 2M+ novels',
                   suffixIcons: [
                     Icons.mic_none_rounded,
@@ -343,20 +343,20 @@ class LibraryScreen extends StatelessWidget {
           // Banner carousel (16:9 promo strip)
           Padding(
             padding: const EdgeInsets.symmetric(
-              horizontal: WnDimens.screenPadding,
+              horizontal: NovelDimens.screenPadding,
             ),
-            child: WnBannerCarousel(
+            child: NovelBannerCarousel(
               height: 140,
               banners: const [
-                WnBanner(
+                NovelBanner(
                   title: 'Power Ranking Season Finale — vote now!',
                   tag: 'EVENT',
                 ),
-                WnBanner(
+                NovelBanner(
                   title: 'Solo Leveling: new season chapters',
                   tag: 'HOT',
                 ),
-                WnBanner(
+                NovelBanner(
                   title: 'Read-to-Earn: 30 min = 1 Fast Pass',
                   tag: 'REWARDS',
                 ),
@@ -366,9 +366,9 @@ class LibraryScreen extends StatelessWidget {
           const SizedBox(height: 18),
 
           // Continue reading
-          WnSectionHeader(title: 'Continue Reading', onSeeAll: () {}),
+          NovelSectionHeader(title: 'Continue Reading', onSeeAll: () {}),
           const SizedBox(height: 10),
-          WnContinueReadingCard(
+          NovelContinueReadingCard(
             book: books[0],
             chapterIndex: 12,
             lastChapterTitle: 'The Wind Rises Over Azure Peak',
@@ -378,7 +378,7 @@ class LibraryScreen extends StatelessWidget {
           const SizedBox(height: 22),
 
           // Popular grid
-          WnSectionHeader(
+          NovelSectionHeader(
             title: 'Popular Right Now',
             subtitle: 'Updated 5m ago',
           ),
@@ -387,7 +387,7 @@ class LibraryScreen extends StatelessWidget {
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             padding: const EdgeInsets.symmetric(
-              horizontal: WnDimens.screenPadding,
+              horizontal: NovelDimens.screenPadding,
             ),
             gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
               maxCrossAxisExtent: 130,
@@ -397,11 +397,11 @@ class LibraryScreen extends StatelessWidget {
             ),
             itemCount: books.length,
             itemBuilder: (context, i) => Center(
-              child: WnBookCard(
+              child: NovelBookCard(
                 book: books[i],
                 updateCount: i == 0 ? 12 : null,
                 subtitle:
-                    '${wnCompactCount(books[i].viewCount)} views · ${books[i].status.name}',
+                    '${novelCompactCount(books[i].viewCount)} views · ${books[i].status.name}',
                 onTap: () => _openDetail(context, books[i]),
               ),
             ),
@@ -409,11 +409,11 @@ class LibraryScreen extends StatelessWidget {
           const SizedBox(height: 22),
 
           // List section
-          WnSectionHeader(title: 'Editors’ Picks'),
+          NovelSectionHeader(title: 'Editors’ Picks'),
           const SizedBox(height: 6),
           ...List.generate(3, (i) {
             final b = books[(i + 2) % books.length];
-            return WnBookListTile(
+            return NovelBookListTile(
               book: b,
               onTap: () => _openDetail(context, b),
             );
@@ -425,13 +425,13 @@ class LibraryScreen extends StatelessWidget {
   }
 }
 
-void _openDetail(BuildContext context, WnBook book) {
+void _openDetail(BuildContext context, NovelBook book) {
   Navigator.of(
     context,
   ).push(MaterialPageRoute<void>(builder: (_) => BookDetailScreen(book: book)));
 }
 
-void _openReader(BuildContext context, WnBook book, {int startChapter = 0}) {
+void _openReader(BuildContext context, NovelBook book, {int startChapter = 0}) {
   Navigator.of(context).push(
     MaterialPageRoute<void>(
       builder: (_) => ReaderScreen(book: book, startChapter: startChapter),
@@ -468,10 +468,10 @@ class RankingsScreen extends StatelessWidget {
             ListView.separated(
               itemCount: ranked.length,
               separatorBuilder: (_, _) => const Divider(indent: 140),
-              itemBuilder: (context, i) => WnRankListItem(
+              itemBuilder: (context, i) => NovelRankListItem(
                 rank: i + 1,
                 book: ranked[i],
-                rankStyle: WnRankStyle.topThree,
+                rankStyle: NovelRankStyle.topThree,
                 onTap: () => _openDetail(context, ranked[i]),
               ),
             ),
@@ -480,7 +480,7 @@ class RankingsScreen extends StatelessWidget {
               separatorBuilder: (_, _) => const Divider(indent: 140),
               itemBuilder: (context, i) {
                 final b = ranked.reversed.toList()[i];
-                return WnRankListItem(
+                return NovelRankListItem(
                   rank: i + 1,
                   book: b,
                   onTap: () => _openDetail(context, b),
@@ -492,7 +492,7 @@ class RankingsScreen extends StatelessWidget {
               separatorBuilder: (_, _) => const Divider(indent: 140),
               itemBuilder: (context, i) {
                 final b = DemoData.books[i];
-                return WnRankListItem(
+                return NovelRankListItem(
                   rank: i + 1,
                   book: b,
                   onTap: () => _openDetail(context, b),
@@ -512,7 +512,7 @@ class RankingsScreen extends StatelessWidget {
 class BookDetailScreen extends StatefulWidget {
   const BookDetailScreen({super.key, required this.book});
 
-  final WnBook book;
+  final NovelBook book;
 
   @override
   State<BookDetailScreen> createState() => _BookDetailScreenState();
@@ -524,7 +524,7 @@ class _BookDetailScreenState extends State<BookDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final cs = WnTheme.of(context).colorScheme;
+    final cs = NovelTheme.of(context).colorScheme;
     final book = widget.book;
     final chapters = DemoData.chaptersFor(book);
 
@@ -543,9 +543,9 @@ class _BookDetailScreenState extends State<BookDetailScreen> {
           SliverToBoxAdapter(
             child: Padding(
               padding: const EdgeInsets.fromLTRB(
-                WnDimens.screenPadding,
+                NovelDimens.screenPadding,
                 4,
-                WnDimens.screenPadding,
+                NovelDimens.screenPadding,
                 0,
               ),
               child: Column(
@@ -554,13 +554,13 @@ class _BookDetailScreenState extends State<BookDetailScreen> {
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      WnCoverView(
+                      NovelCoverView(
                         url: book.coverUrl,
                         title: book.title,
                         author: book.author,
                         width: 110,
                       ),
-                      const SizedBox(width: WnDimens.xl),
+                      const SizedBox(width: NovelDimens.xl),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -600,17 +600,17 @@ class _BookDetailScreenState extends State<BookDetailScreen> {
                               runSpacing: 6,
                               children: [
                                 if (book.category != null)
-                                  WnTagChip(
+                                  NovelTagChip(
                                     book.category!,
                                     dense: true,
                                     selected: true,
                                   ),
                                 for (final t in book.tags.skip(1).take(2))
-                                  WnTagChip(t, dense: true),
+                                  NovelTagChip(t, dense: true),
                               ],
                             ),
                             const SizedBox(height: 10),
-                            WnStatusBadge(book.status, compact: false),
+                            NovelStatusBadge(book.status, compact: false),
                           ],
                         ),
                       ),
@@ -620,11 +620,11 @@ class _BookDetailScreenState extends State<BookDetailScreen> {
                   Row(
                     children: [
                       _Stat(
-                        value: wnCompactCount(book.viewCount),
+                        value: novelCompactCount(book.viewCount),
                         label: 'Views',
                       ),
                       _Stat(
-                        value: wnCompactCount(book.collectionCount),
+                        value: novelCompactCount(book.collectionCount),
                         label: 'Collections',
                       ),
                       _Stat(
@@ -635,14 +635,14 @@ class _BookDetailScreenState extends State<BookDetailScreen> {
                       Expanded(
                         child: Column(
                           children: [
-                            WnRatingBar(
+                            NovelRatingBar(
                               value: book.score,
                               size: 15,
                               showValueLabel: true,
                             ),
                             const SizedBox(height: 3),
                             Text(
-                              '${wnCompactCount(book.ratingCount)} ratings',
+                              '${novelCompactCount(book.ratingCount)} ratings',
                               style: TextStyle(
                                 fontSize: 10.5,
                                 color: cs.textTertiary,
@@ -677,7 +677,7 @@ class _BookDetailScreenState extends State<BookDetailScreen> {
                         ),
                       ),
                       const SizedBox(width: 10),
-                      WnPowerStoneButton(count: 12400),
+                      NovelPowerStoneButton(count: 12400),
                     ],
                   ),
                   const SizedBox(height: 24),
@@ -767,7 +767,7 @@ class _BookDetailScreenState extends State<BookDetailScreen> {
             itemCount: chapters.length,
             itemBuilder: (context, i) {
               final ch = chapters[i];
-              return WnChapterTile(
+              return NovelChapterTile(
                 chapter: ch,
                 isRead: ch.index <= 3,
                 onTap: () async {
@@ -775,7 +775,7 @@ class _BookDetailScreenState extends State<BookDetailScreen> {
                     _openReader(context, book, startChapter: ch.index - 1);
                     return;
                   }
-                  await WnUnlockSheet.show(
+                  await NovelUnlockSheet.show(
                     context: context,
                     chapter: ch,
                     coinBalance: 120,
@@ -799,7 +799,7 @@ class _Stat extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cs = WnTheme.of(context).colorScheme;
+    final cs = NovelTheme.of(context).colorScheme;
     return Expanded(
       child: Column(
         children: [
@@ -825,7 +825,7 @@ class _Stat extends StatelessWidget {
 class ReaderScreen extends StatefulWidget {
   const ReaderScreen({super.key, required this.book, this.startChapter = 0});
 
-  final WnBook book;
+  final NovelBook book;
   final int startChapter;
 
   @override
@@ -833,18 +833,18 @@ class ReaderScreen extends StatefulWidget {
 }
 
 class _ReaderScreenState extends State<ReaderScreen> {
-  late final List<WnChapter> chapters = DemoData.chaptersFor(widget.book);
+  late final List<NovelChapter> chapters = DemoData.chaptersFor(widget.book);
   late int _index = widget.startChapter.clamp(0, chapters.length - 1);
   double _progress = 0;
 
   /// Demo paragraph-comment store: chapterKey -> (paragraph -> comments).
   static const _demoCommenters = ['Jerome Bell', 'Luna', 'Aster', 'Rin'];
 
-  Map<int, List<WnComment>> get _commentsForCurrentChapter => {
+  Map<int, List<NovelComment>> get _commentsForCurrentChapter => {
     for (final i in [2, 5, 9])
       i: List.generate(
         (i % 3) + 1,
-        (k) => WnComment(
+        (k) => NovelComment(
           userName: _demoCommenters[k % _demoCommenters.length],
           content:
               'This line hits different on a re-read. The author planned this from chapter 1!',
@@ -860,8 +860,8 @@ class _ReaderScreenState extends State<ReaderScreen> {
   Widget build(BuildContext context) {
     final settings =
         MediaQuery.of(context).platformBrightness == Brightness.dark
-        ? const WnReaderSettings(paper: WnReaderPaper.night)
-        : const WnReaderSettings(paper: WnReaderPaper.sepia);
+        ? const NovelReaderSettings(paper: NovelReaderPaper.night)
+        : const NovelReaderSettings(paper: NovelReaderPaper.sepia);
     return PopScope(
       onPopInvokedWithResult: (didPop, _) {
         if (didPop) {
@@ -874,7 +874,7 @@ class _ReaderScreenState extends State<ReaderScreen> {
           );
         }
       },
-      child: WnReaderView(
+      child: NovelReaderView(
         chapter: chapters[_index],
         totalChapters: chapters.length,
         settings: settings,
@@ -883,7 +883,7 @@ class _ReaderScreenState extends State<ReaderScreen> {
           for (final e in _commentsForCurrentChapter.entries)
             e.key: e.value.length,
         },
-        onParagraphComments: (i) => WnParagraphCommentsSheet.show(
+        onParagraphComments: (i) => NovelParagraphCommentsSheet.show(
           context,
           paragraphIndex: i,
           paragraphText: chapters[_index].paragraphs[i],
@@ -950,7 +950,7 @@ class GalleryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cs = WnTheme.of(context).colorScheme;
+    final cs = NovelTheme.of(context).colorScheme;
     final b = DemoData.books[0];
     final ch = DemoData.chaptersFor(b)[7].copyWith(isLocked: true, coinCost: 8);
     return Scaffold(
@@ -958,7 +958,7 @@ class GalleryScreen extends StatelessWidget {
       body: ListView(
         padding: const EdgeInsets.symmetric(vertical: 16),
         children: [
-          WnSectionHeader(title: 'Rating bars'),
+          NovelSectionHeader(title: 'Rating bars'),
           const SizedBox(height: 10),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -966,19 +966,19 @@ class GalleryScreen extends StatelessWidget {
               children: [
                 Align(
                   alignment: Alignment.centerLeft,
-                  child: WnRatingBar(value: 4.7, showValueLabel: true),
+                  child: NovelRatingBar(value: 4.7, showValueLabel: true),
                 ),
                 const SizedBox(height: 8),
                 Align(
                   alignment: Alignment.centerLeft,
-                  child: WnRatingBar(value: 3.2, size: 20),
+                  child: NovelRatingBar(value: 3.2, size: 20),
                 ),
               ],
             ),
           ),
           const SizedBox(height: 22),
 
-          WnSectionHeader(title: 'Tags & badges'),
+          NovelSectionHeader(title: 'Tags & badges'),
           const SizedBox(height: 10),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -986,26 +986,26 @@ class GalleryScreen extends StatelessWidget {
               spacing: 8,
               runSpacing: 8,
               children: [
-                WnTagChip('Eastern Fantasy', selected: true),
-                WnTagChip('Cultivation'),
-                WnTagChip('System'),
-                WnStatusBadge(WnBookStatus.ongoing, compact: false),
-                WnStatusBadge(WnBookStatus.completed, compact: false),
-                const WnCoinBadge(amount: 1280),
-                const WnUpdateBadge(count: 12),
-                const WnFansRankBadge(rank: 1),
-                const WnFansRankBadge(rank: 2),
-                const WnFansRankBadge(rank: 3),
-                const WnCornerRibbon('Original'),
-                const WnLevelBadge(level: 15),
+                NovelTagChip('Eastern Fantasy', selected: true),
+                NovelTagChip('Cultivation'),
+                NovelTagChip('System'),
+                NovelStatusBadge(NovelBookStatus.ongoing, compact: false),
+                NovelStatusBadge(NovelBookStatus.completed, compact: false),
+                const NovelCoinBadge(amount: 1280),
+                const NovelUpdateBadge(count: 12),
+                const NovelFansRankBadge(rank: 1),
+                const NovelFansRankBadge(rank: 2),
+                const NovelFansRankBadge(rank: 3),
+                const NovelCornerRibbon('Original'),
+                const NovelLevelBadge(level: 15),
               ],
             ),
           ),
           const SizedBox(height: 22),
 
-          WnSectionHeader(title: 'Search landing (hot + history)'),
+          NovelSectionHeader(title: 'Search landing (hot + history)'),
           const SizedBox(height: 10),
-          WnSearchSuggestions(
+          NovelSearchSuggestions(
             hotSearches: const [
               'Solo Leveling',
               'Rebirth of the Golden Emperor',
@@ -1018,30 +1018,30 @@ class GalleryScreen extends StatelessWidget {
           ),
           const SizedBox(height: 22),
 
-          WnSectionHeader(title: 'Power Ranking podium (GoodNovel-style)'),
+          NovelSectionHeader(title: 'Power Ranking podium (GoodNovel-style)'),
           const SizedBox(height: 10),
-          WnPowerRankPodium(
+          NovelPowerRankPodium(
             title: 'Power Ranking · Weekly',
             topThree: [DemoData.books[5], DemoData.books[0], DemoData.books[4]],
             onTap: (i) {},
           ),
           const SizedBox(height: 22),
 
-          WnSectionHeader(title: 'Achievements (RoyalRoad-style)'),
+          NovelSectionHeader(title: 'Achievements (RoyalRoad-style)'),
           const SizedBox(height: 10),
-          WnAchievementRow(
+          NovelAchievementRow(
             achievements: const [
-              WnAchievement(
+              NovelAchievement(
                 label: '1M words',
                 icon: Icons.auto_stories_rounded,
               ),
-              WnAchievement(label: 'Top 100', icon: Icons.emoji_events_rounded),
-              WnAchievement(label: '20K followers', icon: Icons.groups_rounded),
-              WnAchievement(
+              NovelAchievement(label: 'Top 100', icon: Icons.emoji_events_rounded),
+              NovelAchievement(label: '20K followers', icon: Icons.groups_rounded),
+              NovelAchievement(
                 label: 'Rising Star',
                 icon: Icons.rocket_launch_rounded,
               ),
-              WnAchievement(
+              NovelAchievement(
                 label: 'Locked',
                 icon: Icons.workspace_premium_rounded,
                 locked: true,
@@ -1050,17 +1050,17 @@ class GalleryScreen extends StatelessWidget {
           ),
           const SizedBox(height: 22),
 
-          WnSectionHeader(title: 'Wait-or-pay unlock (Tapas-style)'),
+          NovelSectionHeader(title: 'Wait-or-pay unlock (Tapas-style)'),
           const SizedBox(height: 6),
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 12),
             decoration: BoxDecoration(
               color: cs.surface,
-              borderRadius: BorderRadius.circular(WnDimens.radiusLg),
+              borderRadius: BorderRadius.circular(NovelDimens.radiusLg),
               border: Border.all(color: cs.border),
             ),
             clipBehavior: Clip.antiAlias,
-            child: WnWaitOrPayTile(
+            child: NovelWaitOrPayTile(
               chapterTitle: 'Ch.48 · The Hourglass Turns',
               unlockAt: DateTime.now().add(const Duration(hours: 21)),
               coinCost: 2,
@@ -1068,7 +1068,7 @@ class GalleryScreen extends StatelessWidget {
           ),
           const SizedBox(height: 22),
 
-          WnSectionHeader(title: 'Latest updates feed (ScribbleHub-style)'),
+          NovelSectionHeader(title: 'Latest updates feed (ScribbleHub-style)'),
           const SizedBox(height: 6),
           ...DemoData.books
               .take(3)
@@ -1076,7 +1076,7 @@ class GalleryScreen extends StatelessWidget {
               .asMap()
               .entries
               .map(
-                (e) => WnLatestUpdateTile(
+                (e) => NovelLatestUpdateTile(
                   book: e.value,
                   latestChapterTitle: 'Ch.${120 + e.key} · New dawn',
                   timeLabel: '${e.key + 1}h ago',
@@ -1084,19 +1084,19 @@ class GalleryScreen extends StatelessWidget {
               ),
           const SizedBox(height: 22),
 
-          WnSectionHeader(title: 'Comments (recovered spec)'),
+          NovelSectionHeader(title: 'Comments (recovered spec)'),
           const SizedBox(height: 10),
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 12),
             decoration: BoxDecoration(
               color: cs.surface,
-              borderRadius: BorderRadius.circular(WnDimens.radiusLg),
+              borderRadius: BorderRadius.circular(NovelDimens.radiusLg),
               border: Border.all(color: cs.border),
             ),
             child: Column(
               children: [
-                WnCommentTile(
-                  comment: WnComment(
+                NovelCommentTile(
+                  comment: NovelComment(
                     userName: 'Jerome Bell',
                     content:
                         'Your time is limited, so don’t waste it living someone else’s life.',
@@ -1107,8 +1107,8 @@ class GalleryScreen extends StatelessWidget {
                   ),
                 ),
                 Divider(indent: 68, color: cs.border),
-                WnCommentTile(
-                  comment: WnComment(
+                NovelCommentTile(
+                  comment: NovelComment(
                     userName: 'Luna',
                     content:
                         'This paragraph gave me chills. The foreshadowing!',
@@ -1125,47 +1125,47 @@ class GalleryScreen extends StatelessWidget {
           ),
           const SizedBox(height: 22),
 
-          WnSectionHeader(title: 'Review axes'),
+          NovelSectionHeader(title: 'Review axes'),
           const SizedBox(height: 10),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: WnReviewAxes(
+            child: NovelReviewAxes(
               overall: 4.71,
               scores: {
-                WnReviewAxis.writingQuality: 4.8,
-                WnReviewAxis.stabilityOfUpdates: 4.5,
-                WnReviewAxis.storyDevelopment: 4.6,
-                WnReviewAxis.characterDesign: 4.9,
-                WnReviewAxis.worldBackground: 4.4,
+                NovelReviewAxis.writingQuality: 4.8,
+                NovelReviewAxis.stabilityOfUpdates: 4.5,
+                NovelReviewAxis.storyDevelopment: 4.6,
+                NovelReviewAxis.characterDesign: 4.9,
+                NovelReviewAxis.worldBackground: 4.4,
               },
             ),
           ),
           const SizedBox(height: 22),
 
-          WnSectionHeader(title: 'Chapters'),
+          NovelSectionHeader(title: 'Chapters'),
           const SizedBox(height: 6),
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 12),
             decoration: BoxDecoration(
               color: cs.surface,
-              borderRadius: BorderRadius.circular(WnDimens.radiusLg),
+              borderRadius: BorderRadius.circular(NovelDimens.radiusLg),
               border: Border.all(color: cs.border),
             ),
             clipBehavior: Clip.antiAlias,
             child: Column(
               children: [
-                WnChapterTile(
+                NovelChapterTile(
                   chapter: DemoData.chaptersFor(b)[0],
                   isRead: true,
                 ),
                 Divider(indent: 20, color: cs.border),
-                WnChapterTile(chapter: ch),
+                NovelChapterTile(chapter: ch),
               ],
             ),
           ),
           const SizedBox(height: 22),
 
-          WnSectionHeader(title: 'Buttons & votes'),
+          NovelSectionHeader(title: 'Buttons & votes'),
           const SizedBox(height: 10),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -1178,8 +1178,8 @@ class GalleryScreen extends StatelessWidget {
                   onPressed: () {},
                   child: const Text('+ Library'),
                 ),
-                WnPowerStoneButton(count: 12400),
-                WnPowerStoneButton(count: 99, voted: true),
+                NovelPowerStoneButton(count: 12400),
+                NovelPowerStoneButton(count: 99, voted: true),
               ],
             ),
           ),

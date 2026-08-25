@@ -14,7 +14,7 @@ bed or commuting, for 30–90 minute sessions. Many end users read in Arabic
 
 ## Product Purpose
 
-wn_design is a Flutter design-system package that ships everything a
+novel_ui is a Flutter design-system package that ships everything a
 novel-app needs: book cards/rails, rankings, chapter catalogs with paid
 unlock flows, engagement widgets (votes, gifts, comments), and a full
 reading engine (paginated & scroll modes, six paper themes, paragraph
@@ -50,7 +50,7 @@ gimmicky.
 3. **Contrast is non-negotiable**: body text ≥4.5:1 on every paper theme,
    including night and kraft.
 4. **Bilingual by birthright**: every user-facing string lives in
-   `WnStrings` (EN/AR); layouts must survive RTL mirroring.
+   `NovelStrings` (EN/AR); layouts must survive RTL mirroring.
 5. **Recovered, not invented**: when the official apps already solved a
    pattern (unlock sheets, podium rankings, power votes), follow their
    verified specs instead of inventing new shapes.
